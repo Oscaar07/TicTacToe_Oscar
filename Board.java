@@ -18,8 +18,7 @@ class Board
     //
     // Ne pas changer la signature de cette méthode
     public void play(Move m, Mark mark){
-        
-
+        board[m.getRow()][m.getCol()] = mark;
     }
 
 
@@ -28,6 +27,36 @@ class Board
     //           0   pour un match nul
     // Ne pas changer la signature de cette méthode
     public int evaluate(Mark mark){
+        if (hasWon(mark)) {
+            return 100;
+        } else if (hasWon(mark.other())) {
+            return -100;
+        } else {
+            return 0;
+        }
+    }
 
+    // Method to check if a player has won
+    private boolean hasWon(Mark mark) {
+        // Check rows
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == mark && board[i][1] == mark && board[i][2] == mark) {
+                return true;
+            }
+        }
+        // Check columns
+        for (int i = 0; i < 3; i++) {
+            if (board[0][i] == mark && board[1][i] == mark && board[2][i] == mark) {
+                return true;
+            }
+        }
+        // Check diagonals
+        if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark) {
+            return true;
+        }
+        if (board[0][2] == mark && board[1][1] == mark && board[2][0] == mark) {
+            return true;
+        }
+        return false;
     }
 }
