@@ -15,6 +15,7 @@ class CPUPlayer
     private int numExploredNodes;
 
     private Mark cpu;
+    private int MaxScore;
     // Le constructeur reçoit en paramètre le
     // joueur MAX (X ou O)
     public CPUPlayer(Mark cpu){
@@ -35,10 +36,19 @@ class CPUPlayer
     // ont le même score.
     public ArrayList<Move> getNextMoveAB(Board board){
         ArrayList<Move> moves = new ArrayList<Move>();
-        
-        
-        
+        this.MaxScore = Integer.MIN_VALUE;
+        int temps = Integer.MIN_VALUE;
 
+        int eval = alphaBeta(board, 0, null, numExploredNodes, MaxScore, false);
+        if(eval >= MaxScore){
+            temps = eval;
+            if(temps > ){
+                moves.clear();
+            }
+            MaxScore = eval;
+            moves.add(board.getMovesPossibles().get(numExploredNodes));
+
+        }
         return moves;
     }
 
