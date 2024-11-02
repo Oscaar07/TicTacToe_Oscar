@@ -59,4 +59,31 @@ class Board
         }
         return false;
     }
+
+    public ArrayList<Move> getMovesPossibles() {
+        ArrayList<Move> moves = new ArrayList<Move>();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == null) {
+                    moves.add(new Move(i, j));
+                }
+            }
+        }
+        return moves;
+    }
+    
+    public Board clone() {
+        Board newBoard = new Board();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                newBoard.board[i][j] = board[i][j];
+            }
+        }
+        return newBoard;
+    }
+
+    public boolean isOver() {
+        return getMovesPossibles().size() == 0 || hasWon(Mark.X) || hasWon(Mark.O);
+    }
+
 }
