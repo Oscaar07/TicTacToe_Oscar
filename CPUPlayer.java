@@ -37,23 +37,24 @@ class CPUPlayer
     public ArrayList<Move> getNextMoveAB(Board board){
         ArrayList<Move> moves = new ArrayList<Move>();
         this.MaxScore = Integer.MIN_VALUE;
-        int temps = Integer.MIN_VALUE;
 
-        int eval = alphaBeta(board, 0, null, numExploredNodes, MaxScore, false);
-        if(eval >= MaxScore){
-            temps = eval;
-            if(temps > ){
+        for (Move move : board.getMovesPossibles()) {
+            Board newBoard = board.clone();
+            newBoard.play(move, cpu);
+            int score = alphaBeta(newBoard, 0, this, Integer.MIN_VALUE, Integer.MAX_VALUE, a changer);
+            if (score > this.MaxScore) {
+                this.MaxScore = score;
                 moves.clear();
+                moves.add(move);
+            } else if (score == this.MaxScore) {
+                moves.add(move);
             }
-            MaxScore = eval;
-            moves.add(board.getMovesPossibles().get(numExploredNodes));
-
         }
         return moves;
     }
 
     public int alphaBeta (Board board, int depth, CPUPlayer player, int alpha, int beta, boolean maximizingPlayer) {
-        numExploredNodes++;
+        this.numExploredNodes++;
         if (depth == 9 || board.isOver()) {
             return board.evaluate(player.getMark());
         }
